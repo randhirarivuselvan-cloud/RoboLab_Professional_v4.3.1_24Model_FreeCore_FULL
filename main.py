@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.routes import router
 from api.copilot import router as copilot_router
 
-VERSION="4.2.0"
+VERSION="4.3.1"
 BASE=Path(__file__).resolve().parent
 STATIC=BASE/"web"/"static"
 app=FastAPI(title="RoboLab",version=VERSION)
