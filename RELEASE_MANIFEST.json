@@ -1,0 +1,11 @@
+{
+  "version": "4.3.1",
+  "base_application": "RoboLab Professional v4.2.0",
+  "specialist_training_suite": "24 roles",
+  "free_core": [
+    "building",
+    "code_generation",
+    "circuit_generation"
+  ],
+  "note": "No claim is made that 24 frontier neural weights are included; the suite includes training/inference infrastructure."
+}

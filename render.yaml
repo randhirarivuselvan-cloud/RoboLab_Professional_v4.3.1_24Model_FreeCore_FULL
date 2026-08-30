@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: robolab-professional
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DEFAULT_COUNTRY
+        value: IN
+      - key: AI_PROVIDER
+        value: none
+      - key: CORS_ORIGINS
+        value: '*'

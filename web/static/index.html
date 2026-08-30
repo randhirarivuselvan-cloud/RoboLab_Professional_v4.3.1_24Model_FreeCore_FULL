@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RoboLab — Engineering AI Workspace</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div id="auth" class="screen">
+  <div class="brand">Robo<span>Lab</span></div>
+  <p class="eyebrow">SYNAPSEX ROBOTICS & TECHNOLOGIES</p>
+  <h1>From imagination<br>to engineering.</h1>
+  <p class="muted">Describe what you want to build — then work with RoboLab's engineering pipeline and Copilot.</p>
+  <div class="auth-buttons">
+    <button class="primary" onclick="enterApp('Guest')">Continue</button>
+  </div>
+  <small>Guest mode is enabled for the no-AI deployment test.</small>
+</div>
+
+<div id="app" class="hidden">
+<header>
+  <div class="brand">Robo<span>Lab</span></div>
+  <div class="top-actions"><span id="region">Detecting region…</span><button onclick="showHome()">Home</button></div>
+</header>
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">ENGINEERING HUB</p>
+    <h2>What do you want to build?</h2>
+    <p class="muted">Turn an idea into architecture, components, circuits, code, tests and a prototype plan.</p>
+    <textarea id="idea" placeholder="Example: Build a two-wheel line-following robot with two IR sensors and an Arduino."></textarea>
+    <button class="primary big" onclick="analyze()">✨ Start Building</button>
+  </div>
+  <div class="orb"><div>R</div></div>
+</section>
+
+<section class="workspace-grid">
+  <section id="result" class="result hidden"></section>
+  <aside class="copilot">
+    <div class="copilot-head"><div><p class="eyebrow">AI ASSISTANT</p><h3>RoboLab Copilot</h3></div><span id="copilot-status">checking…</span></div>
+    <p class="muted">Ask about your project, code, tests, architecture, circuits or next steps.</p>
+    <textarea id="copilot-input" placeholder="e.g. Explain the best way to structure the motor controller and tests."></textarea>
+    <div class="copilot-actions">
+      <button onclick="copilotAsk('chat')">Ask</button>
+      <button onclick="copilotAsk('review')">Review</button>
+      <button onclick="copilotAsk('test')">Test plan</button>
+      <button onclick="copilotAsk('debug')">Debug</button>
+    </div>
+    <div id="copilot-result" class="copilot-result"></div>
+  </aside>
+</section>
+
+<section class="tools">
+<h3>Engineering tools</h3>
+<div class="grid">
+  <button onclick="runStage('architect')">🦾 <b>Robot Builder</b><small>Architecture</small></button>
+  <button onclick="runStage('component')">🧩 <b>Component Lab</b><small>Specs & alternatives</small></button>
+  <button onclick="runStage('circuit')">🔌 <b>Circuit Designer</b><small>Connections & power</small></button>
+  <button onclick="runStage('code')">🤖 <b>AI Code Generator</b><small>Firmware & logic</small></button>
+  <button onclick="runStage('simulation')">🧪 <b>Simulation Lab</b><small>Test plans</small></button>
+  <button onclick="runStage('cad')">📐 <b>CAD Studio</b><small>Mechanical concepts</small></button>
+  <button onclick="runStage('bom')">📦 <b>BOM Generator</b><small>Parts structure</small></button>
+  <button onclick="runStage('debug')">🐛 <b>Code Debugger</b><small>Explain & fix</small></button>
+  <button onclick="runStage('verifier_1')">✅ <b>Verifier AI #1</b><small>Independent check</small></button>
+  <button onclick="runStage('verifier_2')">🛡️ <b>Verifier AI #2</b><small>Adversarial check</small></button>
+  <button onclick="runStage('compiler_1')">⚙️ <b>Compiler AI #1</b><small>Build/manifest check</small></button>
+  <button onclick="runStage('compiler_2')">🔬 <b>Compiler AI #2</b><small>Reproducibility check</small></button>
+  <button onclick="runStage('audit')">📝 <b>Auditor AI</b><small>Risk & completeness</small></button>
+  <button onclick="runStage('consensus')">🧠 <b>Consensus AI</b><small>Evidence aggregation</small></button>
+</div>
+</section>
+
+<section class="pipeline">
+<h3>The RoboLab pipeline</h3>
+<div><span>💡 Idea</span><i>→</i><span>🧠 Analyze</span><i>→</i><span>🧩 Parts</span><i>→</i><span>🔌 Circuit</span><i>→</i><span>💻 Code</span><i>→</i><span>🧪 Verify</span><i>→</i><span>🛠 Prototype</span></div>
+</section>
+</main>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "suite_version": "1.1",
+  "training_status": "recipes_only",
+  "roles": [
+    "architect", "component", "circuit", "code", "cad", "simulation", "bom", "debug", "documentation",
+    "verifier_1", "verifier_2", "compiler_1", "compiler_2", "consensus"
+  ],
+  "design": {
+    "strategy": "independent role adapters over a strong pretrained code/instruction base model",
+    "verification": "two independent verifier roles",
+    "compilation": "two independent compiler roles",
+    "final_decision": "consensus role consumes evidence rather than silently trusting one model",
+    "important": "No pretrained or fine-tuned weights are bundled; actual training requires GPU compute and a high-quality dataset."
+  }
+}

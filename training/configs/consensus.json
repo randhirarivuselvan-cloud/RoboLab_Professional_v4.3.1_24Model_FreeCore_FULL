@@ -1,0 +1,16 @@
+{
+  "role": "consensus",
+  "output_dir": "outputs/consensus",
+  "base_model": "SET_A_STRONG_CODE_INSTRUCTION_BASE_MODEL",
+  "dataset": "training/data/consensus.jsonl",
+  "method": "qlora",
+  "max_seq_length": 8192,
+  "epochs": 3,
+  "learning_rate": 0.0002,
+  "evaluation": [
+    "schema_validity",
+    "task_accuracy",
+    "regression",
+    "safety_review"
+  ]
+}

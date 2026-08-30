@@ -1,0 +1,127 @@
+{
+  "version": "4.3.0",
+  "count": 24,
+  "roles": [
+    {
+      "id": "architect",
+      "name": "Architect AI",
+      "purpose": "Turn robotics requirements into system architecture, interfaces, constraints, and subsystem decomposition."
+    },
+    {
+      "id": "component",
+      "name": "Component AI",
+      "purpose": "Select components, compare alternatives, and check compatibility, ratings, interfaces, and constraints."
+    },
+    {
+      "id": "circuit",
+      "name": "Circuit AI",
+      "purpose": "Design circuits, connections, pin maps, power paths, protection, and electrical constraints."
+    },
+    {
+      "id": "code",
+      "name": "Code AI",
+      "purpose": "Generate reliable robotics software and firmware with tests, interfaces, and error handling."
+    },
+    {
+      "id": "cad",
+      "name": "CAD AI",
+      "purpose": "Create parametric mechanical design plans, dimensions, interfaces, materials, and constraints."
+    },
+    {
+      "id": "simulation",
+      "name": "Simulation AI",
+      "purpose": "Design simulations, test plans, assumptions, scenarios, and interpret simulation evidence."
+    },
+    {
+      "id": "bom",
+      "name": "BOM AI",
+      "purpose": "Produce structured bills of materials, quantities, specifications, alternatives, and cost categories."
+    },
+    {
+      "id": "debug",
+      "name": "Debug AI",
+      "purpose": "Diagnose code/system failures, identify root causes, propose fixes, and regression tests."
+    },
+    {
+      "id": "documentation",
+      "name": "Documentation AI",
+      "purpose": "Produce engineering documentation, build instructions, specifications, and handoff notes."
+    },
+    {
+      "id": "verifier_1",
+      "name": "Verifier AI #1",
+      "purpose": "Independently verify requirements, architecture, hardware, circuit, code, and evidence consistency."
+    },
+    {
+      "id": "verifier_2",
+      "name": "Verifier AI #2",
+      "purpose": "Perform independent adversarial verification and attempt to find contradictions or unsafe assumptions."
+    },
+    {
+      "id": "compiler_1",
+      "name": "Compiler AI #1",
+      "purpose": "Independently validate and assemble project artifacts into a consistent compile-ready result."
+    },
+    {
+      "id": "compiler_2",
+      "name": "Compiler AI #2",
+      "purpose": "Reproduce compilation/assembly independently and flag mismatches or missing dependencies."
+    },
+    {
+      "id": "consensus",
+      "name": "Consensus AI",
+      "purpose": "Aggregate independent evidence and produce a justified final project decision."
+    },
+    {
+      "id": "copilot",
+      "name": "RoboLab Copilot",
+      "purpose": "Act as a project-aware engineering assistant that can explain, review, debug, test, and guide workflows."
+    },
+    {
+      "id": "requirements",
+      "name": "Requirements AI",
+      "purpose": "Turn vague user ideas into measurable engineering requirements, acceptance criteria, and constraints."
+    },
+    {
+      "id": "feasibility",
+      "name": "Feasibility AI",
+      "purpose": "Assess technical feasibility, risks, dependencies, assumptions, and evidence needed for a design."
+    },
+    {
+      "id": "power",
+      "name": "Power AI",
+      "purpose": "Estimate voltage/current/power/energy budgets, peak load, battery sizing, and power-path constraints."
+    },
+    {
+      "id": "thermal",
+      "name": "Thermal AI",
+      "purpose": "Assess heat sources, thermal margins, cooling needs, materials, and thermal risks."
+    },
+    {
+      "id": "mechanical",
+      "name": "Mechanical AI",
+      "purpose": "Reason about mechanisms, loads, torque, gearing, joints, tolerances, and structural constraints."
+    },
+    {
+      "id": "control_systems",
+      "name": "Control Systems AI",
+      "purpose": "Design feedback/control strategies, PID logic, stability considerations, and validation plans."
+    },
+    {
+      "id": "firmware_architecture",
+      "name": "Firmware Architecture AI",
+      "purpose": "Design firmware modules, interfaces, task scheduling, state machines, and hardware abstraction."
+    },
+    {
+      "id": "pcb",
+      "name": "PCB AI",
+      "purpose": "Plan PCB architecture, interfaces, placement/routing constraints, power integrity, and manufacturing checks."
+    },
+    {
+      "id": "sensor_fusion",
+      "name": "Sensor Fusion AI",
+      "purpose": "Combine sensor streams, define estimation pipelines, uncertainty handling, and validation strategies."
+    }
+  ],
+  "note": "Training configurations and starter datasets. Actual model weights require a real pretrained base model, substantial data, and GPU compute."
+}

@@ -1,0 +1,36 @@
+{
+  "role": "architect",
+  "display_name": "Architect AI",
+  "purpose": "Turn robotics requirements into system architecture, interfaces, constraints, and subsystem decomposition.",
+  "base_model_env": "ROBO_BASE_MODEL",
+  "output_dir": "models/architect",
+  "dataset": "training/data/architect.jsonl",
+  "lora": {
+    "r": 32,
+    "alpha": 64,
+    "dropout": 0.05,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj"
+    ]
+  },
+  "training": {
+    "epochs": 3,
+    "learning_rate": 0.0002,
+    "per_device_train_batch_size": 1,
+    "gradient_accumulation_steps": 8,
+    "max_seq_length": 4096
+  },
+  "output_contract": {
+    "type": "json",
+    "required_fields": [
+      "status",
+      "analysis",
+      "artifacts",
+      "risks",
+      "next_actions"
+    ]
+  }
+}
