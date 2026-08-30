@@ -23,8 +23,8 @@ _B2 = _unpack(_DATA["b2"], len(_LABELS))
 _THRESHOLD = float(_DATA.get("threshold", 0.24))
 
 
-def _hash_feature(text: str, gram: str) -> int:
-    digest = hashlib.sha256((gram + "|" + str(gram.__len__())).encode("utf-8")).digest()
+def _hash_feature(gram: str) -> int:
+    digest = hashlib.sha256(gram.encode("utf-8")).digest()
     return int.from_bytes(digest[:4], "little") % _D
 
 
@@ -35,9 +35,9 @@ def _features(text: str) -> list[float]:
     for n in (2, 3, 4):
         for i in range(max(0, len(padded) - n + 1)):
             gram = padded[i : i + n]
-            x[_hash_feature(clean, gram)] += 1.0
+            x[_hash_feature(gram)] += 1.0
     for word in re.findall(r"[a-z0-9][a-z0-9\-\.]*", clean):
-        x[_hash_feature(clean, "w:" + word)] += 2.0
+        x[_hash_feature("w:" + word)] += 2.0
     norm = math.sqrt(sum(v * v for v in x)) or 1.0
     return [v / norm for v in x]
 
@@ -55,21 +55,21 @@ def _neural_scores(text: str) -> list[float]:
     hidden = []
     for j in range(_H):
         total = _B1[j]
-        base = j
         for i, xv in enumerate(x):
-            total += xv * _W1[i * _H + base]
+            total += xv * _W1[i * _H + j]
         hidden.append(max(0.0, total))
     out = []
-    for k in range(len(_LABELS)):
+    width = len(_LABELS)
+    for k in range(width):
         total = _B2[k]
         for j, hv in enumerate(hidden):
-            total += hv * _W2[j * len(_LABELS) + k]
+            total += hv * _W2[j * width + k]
         out.append(_sigmoid(total))
     return out
 
 
 def _alias_boost(text: str, label: str) -> float:
-    # Small amount of exact phrase evidence to make the compact neural model safer on rare names.
+    # Exact aliases provide a small safety boost for rare part numbers/names.
     t = text.lower()
     aliases = {
         "arduino uno": ["arduino uno", "uno r3", "uno"],
