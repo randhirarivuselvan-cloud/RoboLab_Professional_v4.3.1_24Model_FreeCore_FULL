@@ -1,6 +1,7 @@
 from __future__ import annotations
 import re
 from typing import Any
+from difflib import SequenceMatcher
 from .component_catalog import COMPONENT_CATALOG
 
 
@@ -20,26 +21,69 @@ def _norm(text: str) -> str:
     return re.sub(r"[^a-z0-9+#.\-]+", " ", text.lower()).strip()
 
 
+def _neural_recognition(text: str) -> list[dict[str, Any]]:
+    try:
+        from ai.nlu import recognize_components as neural_recognize
+        return neural_recognize(text)
+    except Exception:
+        return []
+
+
+def _canonical_from_neural(label: str) -> tuple[str, str] | None:
+    norm_label = _norm(label)
+    best: tuple[float, str, str] | None = None
+    for canonical, (category, aliases) in COMPONENT_CATALOG.items():
+        candidates = [canonical, *aliases]
+        for candidate in candidates:
+            score = SequenceMatcher(None, norm_label, _norm(candidate)).ratio()
+            if norm_label in _norm(candidate) or _norm(candidate) in norm_label:
+                score = max(score, 0.82)
+            if best is None or score > best[0]:
+                best = (score, canonical, category)
+    if best and best[0] >= 0.55:
+        return best[1], best[2]
+    return None
+
+
 def recognize_components(text: str) -> list[dict[str, Any]]:
     normalized = _norm(text)
     found: list[dict[str, Any]] = []
+
+    # Exact/alias ontology matching remains the first line of defense.
     for canonical, (category, aliases) in COMPONENT_CATALOG.items():
         for alias in aliases:
             if _norm(alias) in normalized:
-                found.append({"name": canonical, "category": category, "matched_alias": alias})
+                found.append({"name": canonical, "category": category, "matched_alias": alias, "source": "ontology"})
                 break
 
-    # Preserve explicit quantities even when the exact component is not in the catalog.
+    # Neural NLU catches paraphrases and wording that does not exactly match an alias.
+    for prediction in _neural_recognition(text):
+        mapped = _canonical_from_neural(str(prediction.get("component", "")))
+        if mapped:
+            canonical, category = mapped
+            found.append({
+                "name": canonical,
+                "category": category,
+                "matched_alias": prediction.get("component"),
+                "confidence": prediction.get("confidence"),
+                "source": "neural-nlu",
+                "model": prediction.get("model", "robolab-nlu-0.1"),
+            })
+
+    # Preserve explicit quantities even when an exact component is not in the catalog.
     quantity_pattern = re.compile(r"\b(\d+)\s+([a-z][a-z0-9+#.\- ]{1,45})")
     for qty, noun in quantity_pattern.findall(normalized):
         noun = noun.strip()
         if not noun or any(noun in item["name"].lower() or item["name"].lower() in noun for item in found):
             continue
-        found.append({"name": noun, "category": "user-specified", "quantity": int(qty), "matched_alias": noun})
+        found.append({"name": noun, "category": "user-specified", "quantity": int(qty), "matched_alias": noun, "source": "quantity-parser"})
 
     unique: dict[str, dict[str, Any]] = {}
     for item in found:
-        unique[item["name"]] = item
+        key = str(item["name"])
+        existing = unique.get(key)
+        if existing is None or item.get("source") == "ontology":
+            unique[key] = item
     return list(unique.values())
 
 
@@ -63,7 +107,6 @@ def analyze_idea(description: str):
     requirements: list[str] = []
     constraints: list[str] = []
 
-    # Natural-language goals.
     if any(x in words for x in ["robot", "rover", "vehicle", "bot", "drone"]):
         systems.append("robotics platform")
     if any(x in words for x in ["autonomous", "autonomously", "self driving", "self-driving"]):
@@ -108,7 +151,7 @@ def analyze_idea(description: str):
 
     return {
         "concept": text,
-        "status": "Concept analyzed — natural-language engineering baseline generated.",
+        "status": "Concept analyzed — neural NLU + engineering baseline generated.",
         "recognized_components": recognized,
         "budget_inr": budget,
         "architecture": {
@@ -128,5 +171,5 @@ def analyze_idea(description: str):
             "Run independent verification and compilation checks.",
             "Prototype and validate on real hardware before competition or field use.",
         ],
-        "confidence": "Natural-language baseline; exact specifications require authoritative datasheets and physical validation.",
+        "confidence": "Neural NLU bootstrap + deterministic engineering baseline; verify specifications, competition rules and physical behavior before deployment.",
     }
