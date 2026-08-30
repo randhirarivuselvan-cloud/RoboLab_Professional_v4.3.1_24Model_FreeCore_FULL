@@ -1,4 +1,4 @@
-# RoboLab Professional v4.2.0
+# RoboLab Professional v4.3.1
 
 RoboLab is a robotics engineering workspace with a provider-neutral AI gateway, specialized engineering stages, independent verifier/compiler passes, consensus review, and an integrated Copilot-style assistant.
 
