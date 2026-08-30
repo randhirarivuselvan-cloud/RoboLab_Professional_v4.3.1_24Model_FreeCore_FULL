@@ -1,0 +1,17 @@
+{
+  "version": "CODE122-1.1",
+  "initialization": "random",
+  "pretrained_weights": false,
+  "hosted_model_api": false,
+  "mixed_precision": true,
+  "gradient_accumulation": true,
+  "gradient_clipping": 1.0,
+  "cosine_learning_rate": true,
+  "warmup_steps": true,
+  "checkpoint_every_steps": true,
+  "resume_from_checkpoint": true,
+  "held_out_evaluation": true,
+  "specialist_regression": true,
+  "cross_domain_verification": true,
+  "frontier_label_requires_benchmark_evidence": true
+}
