@@ -1,0 +1,38 @@
+name: Train local 48-model suite
+
+on:
+  push:
+    branches:
+      - codex/android-local-48-models
+    paths:
+      - ai/local_models/**
+      - training_48_models/**
+      - tests/test_local_models.py
+      - .github/workflows/train-local-48-models.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  train:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/android-local-48-models
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Train all 48 local models from scratch
+        run: python training_48_models/scripts/train_from_scratch.py
+      - name: Verify checkpoints and local-only runtime
+        run: python -m pytest tests/test_local_models.py -q
+      - name: Commit trained checkpoints
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add training_48_models/artifacts
+          git diff --cached --quiet || git commit -m "Train 48 local RoboLab role models"
+          git push
