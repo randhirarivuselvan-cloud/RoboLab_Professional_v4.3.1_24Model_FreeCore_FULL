@@ -1,0 +1,16 @@
+{
+  "version": "CODE122-1.0",
+  "training_policy": "from_scratch",
+  "provider_policy": "local_only",
+  "frontier_status_policy": "benchmark_required",
+  "specialists": [
+    "builder_requirements", "builder_architecture", "builder_planning", "builder_project_reasoning", "builder_natural_language", "builder_dependency_analysis",
+    "code_generation", "code_completion", "code_debugging", "code_refactoring", "code_static_analysis", "code_test_generation",
+    "firmware_embedded", "arduino", "esp32", "stm32", "python_engineering", "robot_control",
+    "circuit_synthesis", "circuit_validation", "power_analysis", "signal_analysis", "component_selection", "pcb_design",
+    "robotics_kinematics", "robotics_dynamics", "robot_navigation", "robot_perception", "motor_control", "sensor_fusion",
+    "cad_geometry", "mechanical_design", "manufacturing", "tolerance_analysis", "materials", "design_for_assembly",
+    "physics_simulation", "simulation_reasoning", "bom_generation", "component_compatibility", "engineering_math", "engineering_documentation",
+    "cross_domain_verification", "failure_analysis", "safety_rules", "project_verification", "technical_explanation", "engineering_qa"
+  ]
+}
