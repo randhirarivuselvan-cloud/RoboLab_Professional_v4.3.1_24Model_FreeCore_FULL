@@ -30,3 +30,18 @@ jobs:
       - name: Build APK
         working-directory: mobile
         run: flutter build apk --release --dart-define=ROBOLAB_API=https://YOUR-ROBOLAB-HOST
+      - name: Build AAB
+        working-directory: mobile
+        run: flutter build appbundle --release --dart-define=ROBOLAB_API=https://YOUR-ROBOLAB-HOST
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: RoboLab-APK
+          path: mobile/build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error
+      - name: Upload AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: RoboLab-AAB
+          path: mobile/build/app/outputs/bundle/release/app-release.aab
+          if-no-files-found: error
