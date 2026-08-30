@@ -15,6 +15,9 @@ jobs:
         with:
           flutter-version: '3.24.5'
           channel: stable
+      - name: Generate Android platform files
+        working-directory: mobile
+        run: flutter create . --platforms=android --project-name robolab_mobile
       - name: Dependencies
         working-directory: mobile
         run: flutter pub get
