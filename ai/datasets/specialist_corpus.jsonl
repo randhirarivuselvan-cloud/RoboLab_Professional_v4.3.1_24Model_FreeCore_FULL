@@ -1,0 +1,5 @@
+{"text":"RoboLab engineering systems require explicit requirements, interfaces, constraints, measurements, validation evidence, and unresolved risks."}
+{"text":"A circuit design must account for voltage, current, power dissipation, component ratings, signal compatibility, grounding, and protection."}
+{"text":"Firmware should be deterministic where possible, initialize peripherals safely, validate inputs, handle faults, and document board assumptions."}
+{"text":"Robotics projects combine mechanical structure, electronics, software, control, sensors, actuators, power, and safety constraints."}
+{"text":"Engineering verification separates assumptions from measured evidence and uses reproducible tests before deployment."}
