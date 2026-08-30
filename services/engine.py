@@ -28,6 +28,9 @@ class AIOrchestrator:
                 return {"stage":"debug","mode":"native-engine","result":ENGINE.debug(str(payload.get("code") or ""), str(payload.get("language") or "Arduino C++"))}
             return SPECIALISTS[stage](payload)
         if stage not in AGENTS:
+            # Registry-only roles can still be sent to a configured RoboLab model gateway.
+            if self.provider.available():
+                return self._remote(stage, payload)
             raise ValueError(f"Unknown stage: {stage}")
         agent = AGENTS[stage]
         description = str(payload.get("description") or payload.get("idea") or "")
@@ -46,6 +49,9 @@ class AIOrchestrator:
         remote = self.provider.generate(system, f"Stage={stage}; project={payload}", model_for(stage))
         if remote.get("status") == "passed":
             return {"stage":stage,"mode":"model","result":remote.get("data",{}),"provider":self.provider.name,"model":model_for(stage)}
-        return SPECIALISTS[stage](str(payload.get("description") or payload.get("idea") or payload.get("code") or payload))
+        fallback = SPECIALISTS.get(stage)
+        if fallback:
+            return fallback(payload)
+        return {"stage":stage,"mode":"unavailable","result":{},"warnings":["No configured model gateway responded for this specialist role."]}
 
 orchestrator = AIOrchestrator()
