@@ -3,3 +3,5 @@ uvicorn[standard]>=0.30,<1
 httpx>=0.27,<1
 pydantic>=2,<3
 pytest>=8,<9
+# Optional training dependency; install on a GPU/CPU training machine.
+torch>=2.4,<3
