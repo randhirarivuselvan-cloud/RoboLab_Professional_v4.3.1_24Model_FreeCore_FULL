@@ -1,0 +1,1 @@
+"""Local-only, from-scratch RoboLab model suite.\n\nThis package deliberately has no network clients and no pretrained-model loader.\n"""\n
