@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "roles": [
+    "builder","architect","requirements","planner","component","datasheet","circuit","schematic","pcb","power","signal_integrity","embedded","firmware","code","debug","compiler","test","verification","repair","simulation","physics","control","robotics","motion","vision","sensor","actuator","communication","iot","cad","mechanical","materials","thermal","manufacturing","bom","cost","documentation","education","optimization","safety","security","project_manager","integration","consensus","review","qa","release"
+  ]
+}
